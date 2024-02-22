@@ -6,16 +6,16 @@ if [ -z "$DIGEST_USER" ] || [ -z "$DIGEST_PASSWORD" ] || [ -z "$PROXY_HOST" ];
 then
   echo -e "Status: 400 Bad Request"
   echo -e "\r"
-	echo "Missing \$DIGEST_USER, \$DIGEST_PASSWORD or \$PROXY_HOST"
-	exit 1
+  echo "Missing \$DIGEST_USER, \$DIGEST_PASSWORD or \$PROXY_HOST"
+  exit 1
 fi
-  
+
 if [ -z "$REQUEST_URI" ] || [ -z "$REQUEST_METHOD" ];
 then
   echo -e "Status: 400 Bad Request"
   echo -e "\r"
-	echo "Missing \$REQUEST_URI or \$REQUEST_METHOD"
-	exit 1
+  echo "Missing \$REQUEST_URI or \$REQUEST_METHOD"
+  exit 1
 fi
 
 request_body_arg=""
@@ -31,6 +31,6 @@ curl -sL \
   -X "${REQUEST_METHOD}" \
   $request_body_arg \
   "${PROXY_HOST}${REQUEST_URI}" \
- | sed '/^HTTP.* 401 Unauthorized\r$/,/^\r$/d' \
- | sed 's/^HTTP.*\([0-9]\{3\}.*\)/Status: \1/' \
+  | sed '/^HTTP.* 401 Unauthorized\r$/,/^\r$/d' \
+  | sed 's/^HTTP.*\([0-9]\{3\}.*\)/Status: \1/' \
 
